@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FilmListing from './FilmListing';
+import FilmDetails from './FilmDetails';
+import TMDB from './TMDB';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      films: TMDB.films,
+      current: {}
+    }
+  }
+
+    handleDetailsClick = (film) => {
+    console.log("Fetching details for", film.title);
+  }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+       <div className="film-library">
+       <FilmListing films={this.state.films} handleDetailsClick={this.handleDetailsClick} />
+       <FilmDetails films={this.state.current} />
+      </div>
       </div>
     );
   }
